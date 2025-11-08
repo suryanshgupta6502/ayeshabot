@@ -79,7 +79,6 @@ async function loadaction(path) {
 
 loadaction(parameter.animation)
 
-scene.add(new three.AxesHelper(5))
 
 
 
