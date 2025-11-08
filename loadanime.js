@@ -2,15 +2,8 @@ import * as THREE from 'three';
 import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
 import { animemap } from './animemap.js';
 
-/**
- * Load Mixamo animation, convert for three-vrm use, and return it.
- *
- * @param {string} url A url of mixamo animation data
- * @param {VRM} vrm A target VRM
- * @returns {Promise<THREE.AnimationClip>} The converted AnimationClip
- */
 
-export function loadanime(url, vrm) {
+export function loadanime(url, vrm, manager) {
 
     const loader = new FBXLoader(); // A loader which loads FBX
     return loader.loadAsync(url).then((asset) => {

@@ -41,11 +41,21 @@ plane.receiveShadow = true
 scene.add(plane)
 
 
+const manger = new three.LoadingManager()
+manger.onProgress = function (e, loaded, total) {
+    const percent = Math.floor((loaded / total) * 100)
+    document.querySelector(".loading").innerHTML = percent + "%"
+    if (percent >= 100) {
+        document.querySelector(".loading").remove()
+    }
+}
+
+
 
 let model
 let vrm
 
-const modelloade = new GLTFLoader()
+const modelloade = new GLTFLoader(manger)
 modelloade.register((parser) => {
     return new VRMLoaderPlugin(parser);
 })
@@ -55,7 +65,7 @@ model = await modelloade.loadAsync("Sample_Female.vrm")
 vrm = model.userData.vrm
 
 model.scene.traverse(each => {
-      if (each.isMesh) {
+    if (each.isMesh) {
         each.castShadow = true
     }
 })
@@ -71,7 +81,7 @@ let newactions
 async function loadaction(path) {
     if (newactions) { newactions.fadeOut(.5) }
 
-    let clip = await loadanime(path, vrm)
+    let clip = await loadanime(path, vrm, manger)
     newactions = mixer.clipAction(clip)
     newactions.reset().fadeIn(.3).play()
 

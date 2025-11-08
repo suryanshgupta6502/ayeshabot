@@ -1,6 +1,4 @@
-/**
- * A map from Mixamo rig name to VRM Humanoid bone name
- */
+
 export const animemap = {
     mixamorigHips: 'hips',
     mixamorigSpine: 'spine',
